@@ -6,13 +6,11 @@ import Navigation from "../../components/navigation/Navigation";
 import CocktailCard from "../../components/cocktail-card/CocktailCard";
 import { COCKTAIL_TYPES } from "../../types";
 import "./CocktailPage.scss";
-// import LoadingSpinner from "../../components/ui/LoadingSpinner";
-// import ErrorMessage from "../../components/ui/ErrorMessage";
 
 const CocktailPage = () => {
   const { type } = useParams<{ type?: string }>();
   const dispatch = useAppDispatch();
-  const { cachedCocktails, currentCocktail, loading, error } = useAppSelector(
+  const { cachedCocktails, currentCocktail } = useAppSelector(
     (state) => state.cocktails
   );
 
@@ -38,14 +36,6 @@ const CocktailPage = () => {
   if (!type || !COCKTAIL_TYPES.includes(type)) {
     return <Navigate to="/404" replace />;
   }
-
-  //   if (loading) {
-  //     return <LoadingSpinner />;
-  //   }
-
-  //   if (error) {
-  //     return <ErrorMessage message={error} />;
-  //   }
 
   const filteredCocktails = cachedCocktails[currentCocktail] || [];
 
