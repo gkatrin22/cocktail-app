@@ -1,0 +1,79 @@
+.navigation {
+  // background-color: #090618;
+  width: 290px;
+  min-width: 290px;
+  background: $nav-bg;
+  color: $nav-text;
+  overflow-y: auto;
+  &__block-link {
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    display: flex;
+    &--link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: rgba($nav-text, 0.9);
+      height: 100%;
+      width: 100%;
+      padding: 0 20px;
+      &:hover {
+        background: $nav-hover;
+        color: white;
+
+        &::before {
+          background: $nav-accent;
+        }
+      }
+
+      &__active {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        background: $nav-active;
+        color: white;
+        height: 100%;
+        width: 100%;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  &__burger {
+    display: none; // По умолчанию скрыт
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 724px) {
+    width: 100%;
+    &__burger {
+      display: block;
+      color: white;
+    }
+
+    &__links {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      background-color: #181e37;
+      z-index: 10;
+      padding: 10 0px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      &--open {
+        display: flex;
+      }
+    }
+  }
+}
