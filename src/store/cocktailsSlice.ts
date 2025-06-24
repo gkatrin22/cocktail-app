@@ -78,19 +78,6 @@ const cocktailsSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      //   .addCase(fetchCocktails.fulfilled, (state, action) => {
-      //     const type = action.meta.arg;
-      //     state.loading = false;
-
-      //     if (action.payload.length > 0) {
-      //       state.cachedCocktails[type] = action.payload;
-      //       state.cocktails = action.payload;
-
-      //       if (!state.currentCocktail) {
-      //         state.currentCocktail = action.payload[0].idDrink;
-      //       }
-      //     }
-      //   })
       .addCase(fetchCocktails.fulfilled, (state, action) => {
         const type = action.meta.arg;
         state.loading = false;
@@ -106,7 +93,7 @@ const cocktailsSlice = createSlice({
           state.cachedCocktails[type] = cocktailsWithIngredients;
           state.cocktails = cocktailsWithIngredients;
 
-          if (!state.currentCocktail) {
+          if (!state.currentCocktail && cocktailsWithIngredients.length > 0) {
             state.currentCocktail = cocktailsWithIngredients[0].idDrink;
           }
         }
