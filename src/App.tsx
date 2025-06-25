@@ -1,18 +1,9 @@
-import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import CocktailPage from "./pages/CocktailPage/CocktailPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import { useAppDispatch } from "./store/hooks";
-import { fetchCocktails } from "./store/cocktailsSlice";
-import { COCKTAIL_TYPES, DRINK } from "./types";
+import { COCKTAIL_TYPES } from "./types";
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCocktails(DRINK.margarita)); // Загружаем данные по умолчанию
-  }, [dispatch]);
-
   return (
     <>
       <Routes>

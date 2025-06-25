@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchCocktails, setCurrentCocktail } from "../../store/cocktailsSlice";
@@ -10,34 +10,24 @@ import "./CocktailPage.scss";
 const CocktailPage = () => {
   const { type } = useParams<{ type?: string }>();
   const dispatch = useAppDispatch();
-  const { cachedCocktails, currentCocktail } = useAppSelector(
+  const { cachedCocktails } = useAppSelector(
     (state) => state.cocktails
-  );
-
-  const handleSearch = useCallback(
-    (type: string) => {
-      if (!COCKTAIL_TYPES.includes(type)) return;
-
-      if (cachedCocktails[type]) {
-        dispatch(setCurrentCocktail(type));
-      } else {
-        dispatch(fetchCocktails(type));
-      }
-    },
-    [dispatch, cachedCocktails]
   );
 
   useEffect(() => {
     if (type && COCKTAIL_TYPES.includes(type)) {
-      handleSearch(type);
+      if (!cachedCocktails[type]) {
+        dispatch(fetchCocktails(type));
+      }
+      dispatch(setCurrentCocktail(type));
     }
-  }, [type, handleSearch]);
+  }, [type, dispatch, cachedCocktails]);
 
   if (!type || !COCKTAIL_TYPES.includes(type)) {
     return <Navigate to="/404" replace />;
   }
 
-  const filteredCocktails = cachedCocktails[currentCocktail] || [];
+  const filteredCocktails = cachedCocktails[type] || [];
 
   return (
     <div className="cocktail-page">
