@@ -63,7 +63,6 @@
     }
 
     &__links {
-      display: none;
       position: absolute;
       left: 0;
       right: 0;
@@ -71,8 +70,15 @@
       z-index: 10;
       padding: 10 0px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transform: translateY(-20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       &--open {
         display: flex;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
       }
     }
   }

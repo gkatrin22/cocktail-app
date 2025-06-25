@@ -1,7 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { COCKTAIL_TYPES } from "../../types";
 import "./Navigation.scss";
-import { useState } from "react";
 
 const TYPE_DISPLAY_NAMES: Record<string, string> = {
   margarita: "Margarita",
@@ -12,6 +12,16 @@ const TYPE_DISPLAY_NAMES: Record<string, string> = {
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname]);
+
   return (
     <div className="navigation">
       <button
@@ -35,6 +45,7 @@ const Navigation = () => {
                   ? "navigation__block-link--link__active"
                   : "navigation__block-link--link"
               }
+              onClick={closeMenu}
             >
               {TYPE_DISPLAY_NAMES[type] || type}
             </NavLink>
